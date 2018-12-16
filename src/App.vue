@@ -1,28 +1,26 @@
-<template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
-</template>
-
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import dataTable from './components/dataTable.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
-  }
+    'data-table': dataTable,
+  },
+  data() {
+    return {
+      tableData: {},
+    }
+  },
+  mounted() {
+    fetch('/payments').then(response => response.json()).then(data => {
+      this.tableData = data;
+    });
+  },
 }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<template>
+  <div id="app">
+    <data-table v-bind:table-data="tableData"></data-table>
+  </div>
+</template>
