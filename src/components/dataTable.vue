@@ -7,9 +7,14 @@
         required: true,
         default: () => ({})
       },
-      columnDetails: {
+      customizeTable: {
         type: Array,
         required: false,
+        default: () => []
+      },
+      tableRowKeys: {
+        type: Array,
+        required: true,
         default: () => []
       },
       theme: {
@@ -19,17 +24,15 @@
       }
     },
     computed: {
-      tableRowKeys() {
-        const { tableData = {} } = this;
-        return Object.keys(tableData) || [];
-      },
       tableHeader() {
-        const { columnDetails = [], tableData = {}, tableRowKeys = [] } = this;
-        if(columnDetails.length > 0) {
-          return columnDetails.map(item => item.label)
+        //if column details are provided use that to create column headers, column style etc
+        const { customizeTable = [], tableData = {}, tableRowKeys = [] } = this;
+        if(customizeTable.length > 0) {
+          return customizeTable.map(item => item.label)
         }
+        //if column details are not provided the keys of the data will be applied as header
         const header = tableRowKeys[0];
-        return header ? Object.keys(tableData[header]) : [];
+        return Object.keys(tableData[header]);
       }
     }
   }
@@ -37,13 +40,15 @@
 
 <template>
   <div>
-    <table v-if="tableRowKeys.length > 0">
+    <table class="bds-s bdc-gray bdw-1 w-100">
       <thead>
-        <td v-for="column in tableHeader" v-bind:key="column">{{column}}</td>
+        <tr>
+          <th v-for="(column, index) in tableHeader" v-bind:key="column" v-bind:class="[{'cur-p-hv': customizeTable[index].sortable}, 'fw-b p-6', customizeTable[index].columnStyle]">{{column}}</th>
+        </tr>
       </thead>
       <tbody>
-        <tr v-for="rowKey in tableRowKeys" v-bind:key="rowKey">
-          <td v-for="(item,index) in tableData[rowKey]" v-bind:key="`${rowKey}-col${index}`">{{item}}</td>
+        <tr v-for="rowKey in tableRowKeys" v-bind:key="rowKey" class="bdts-s bdc-gray bdw-1">
+          <td v-for="(item,index) in tableHeader" v-bind:key="`${rowKey}-col${index}`" v-bind:class="['p-6', customizeTable[index].columnStyle]">{{tableData[rowKey][item] || '-'}}</td>
         </tr>
       </tbody>
     </table>

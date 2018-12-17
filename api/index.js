@@ -14,7 +14,7 @@ function api(app) {
     csvdata.load('./api/data/payments.csv', csvOptions).then(data => {
       response.json(data)
     }).catch(err => {
-      response.status(422).json(err);
+      response.status(422).send(err);
       throw new Error(err);
     });
   })

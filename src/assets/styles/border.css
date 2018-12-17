@@ -1,0 +1,16 @@
+/* border styles */
+
+.bds-s { border-style: solid; }
+.bdls-s { border-left-style: solid; }
+.bdrs-s { border-right-style: solid; }
+.bdts-s { border-top-style: solid; }
+.bdbs-s { border-bottom-style: solid; }
+
+
+/* border colors */
+
+.bdc-gray { border-color: rgb(189, 184, 184); }
+
+/* border width */
+
+.bdw-1 { border-width: 1px; }
