@@ -1,0 +1,10 @@
+/* Layout */
+.d-f {
+  display: flex;
+}
+
+.jc-fe {
+  justify-content: flex-end;
+}
+
+.ai-c { align-items: center; }
