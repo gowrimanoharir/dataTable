@@ -1,0 +1,8 @@
+/* text alignment */
+
+.ta-l { text-align: left; }
+.ta-r { text-align: right; }
+
+/* text  */
+
+.fw-b { font-weight: 700; }

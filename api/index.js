@@ -7,25 +7,28 @@ function api(app) {
       delimiter: ',',
       encoding: 'utf8',
       log: true,
-      objName: false,
+      objName: 'ID',
       parse: true,
       stream: false
     }  
     csvdata.load('./api/data/payments.csv', csvOptions).then(data => {
       response.json(data)
     }).catch(err => {
-      console.log(err)
-      response.status(422).json(err)
+      response.status(422).send(err);
+      throw new Error(err);
     });
   })
 
   app.post('/payments', function(request, response){
     const data = request.body;
-    const updated = data.map(item => {
+    let updated = {};
+    for(let eachKey in data) {
+      let item = data[eachKey]
       const { Description = ''} = item;
-      item.Description = Description.includes(',') ? `\"${Description}\"` : Description;
-      return item;
-    })
+      //wrap description in quotes so as to allow commas in description text and not break the csv
+      item.Description = `\"${Description}\"`;
+      updated[eachKey] = item;
+    }
     const header = 'ID,Name,Description,Date,Amount';
     const csvOptions = {  
       append: false,
@@ -35,7 +38,6 @@ function api(app) {
       header: header,
       log: true
     }
-    console.log(data)
     csvdata.write('./api/data/payments.csv', updated, csvOptions).then(() => {
       response.status(200).send('success')
     }).catch(err => {
