@@ -42,6 +42,7 @@ export default {
     class="cur-p-hv d-f w-100">
     <slot name="textBefore"></slot>
     <svg 
+      v-if="isIcon"
       v-bind:viewBox="viewBox" 
       v-bind:width="width" 
       v-bind:height="height">

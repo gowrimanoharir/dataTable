@@ -107,8 +107,9 @@ import svgIcons from './icons/svgIcons'
             v-bind:class="[{'p-12': customizeTable[index].columnStyle === 'ta-r'},'fw-b p-6', customizeTable[index].columnStyle]">
             <button-icon
               v-if="customizeTable[index].sortable"
+              v-bind:isIcon="customizeTable[index].key === currentSort.fieldKey"
               v-bind:class="[{'jc-fe': customizeTable[index].columnStyle === 'ta-r'}, 'ai-c']"
-              v-bind:path="svgIcons[`${customizeTable[index].key === currentSort.fieldKey && isAscSort ? 'caret-up' : 'caret-down'}`].path"
+              v-bind:path="svgIcons[`${isAscSort ? 'caret-up' : 'caret-down'}`].path"
               v-on:btnClick="sortColumn(index)">
               <template slot="textBefore">{{column}}</template>
             </button-icon>
@@ -135,7 +136,8 @@ import svgIcons from './icons/svgIcons'
                   class="w-100"
                   v-model="editedItemValue"/>
                 <button-icon
-                  v-else-if="customizeTable[columnIndex].editable" 
+                  v-else-if="customizeTable[columnIndex].editable"
+                  v-bind:isIcon="true"
                   v-bind:path="svgIcons['edit'].path"
                   height="16px"
                   width="16px"
