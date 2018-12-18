@@ -2,6 +2,7 @@ html {
   box-sizing: border-box;
   color: #2c3e50;
   font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
   min-height: 100%;
   overflow-y: scroll;
 }

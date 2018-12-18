@@ -1,7 +1,13 @@
 <script>
 import customizeTable from '../data/customizeTable';
+import buttonIcon from './buttonIcon.vue';
+import svgIcons from './icons/svgIcons'
+
   export default {
     name: 'dataTable',
+    components: {
+      'button-icon': buttonIcon,
+    },    
     props: {
       tableData: {
         type: Array,
@@ -19,6 +25,16 @@ import customizeTable from '../data/customizeTable';
         default: () => ({})
       }
     },
+    data() {
+      return {
+        currentlyEditing: {
+          rowIndex: null,
+          columnIndex: null,
+        },
+        editedItemValue: '',
+        svgIcons: svgIcons,
+      }
+    },
     computed: {
       tableHeader() {
         //if column details are provided use that to create column headers, column style etc
@@ -32,14 +48,50 @@ import customizeTable from '../data/customizeTable';
       },
       isAscSort() {
         return this.currentSort.sortOrder === 'asc';
+      },
+      isEditing() {
+        return this.currentlyEditing.rowIndex !== null && this.currentlyEditing.columnIndex !== null;
       }
+    },
+    directives: {
+      focus: {
+        inserted(el) {
+          el.focus();
+        },
+      },
     },
     methods: {
       sortColumn(index) {
-        if(customizeTable[index].sortable) {
-          this.$emit('sortColumn', customizeTable[index].key);
-        }        
-      }
+        this.$emit('sortColumn', customizeTable[index].key);
+      },
+      editItem(rowIndex, columnIndex) {
+        const { tableData = [], customizeTable = [] } = this;
+        const currentEditKey = customizeTable[columnIndex].key;
+        this.currentlyEditing = {
+          rowIndex: rowIndex,
+          columnIndex: columnIndex
+        }
+        this.editedItemValue = tableData[rowIndex][currentEditKey];
+      },
+      saveEdit() {
+        const { tableData = [], customizeTable = [], editedItemValue = '', currentlyEditing = {} } = this;
+        const { rowIndex = null, columnIndex = null } = currentlyEditing;
+        const currentEditKey = customizeTable[columnIndex].key;
+
+        let updatedData = Object.assign({}, tableData[rowIndex]);
+        if(updatedData[currentEditKey]!==editedItemValue) {
+          updatedData[currentEditKey] = editedItemValue
+          this.$emit('itemUpdate', updatedData);
+        }
+        this.resetEdit();
+      },
+      resetEdit() {
+        this.currentlyEditing = {
+          rowIndex: null,
+          columnIndex: null
+        };
+        this.editedItemValue = '';
+      },
     }
   }
 </script>
@@ -52,30 +104,50 @@ import customizeTable from '../data/customizeTable';
           <td 
             v-for="(column, index) in tableHeader" 
             v-bind:key="column" 
-            v-bind:class="['fw-b p-6', customizeTable[index].columnStyle]"
-            v-on:click="sortColumn(index)">
-            <button v-if="customizeTable[index].sortable" v-bind:class="[{'jc-fe': customizeTable[index].columnStyle === 'ta-r'},'ai-c cur-p-hv d-f w-100']">
+            v-bind:class="[{'p-12': customizeTable[index].columnStyle === 'ta-r'},'fw-b p-6', customizeTable[index].columnStyle]">
+            <button-icon
+              v-if="customizeTable[index].sortable"
+              v-bind:class="[{'jc-fe': customizeTable[index].columnStyle === 'ta-r'}, 'ai-c']"
+              v-bind:path="svgIcons[`${customizeTable[index].key === currentSort.fieldKey && isAscSort ? 'caret-up' : 'caret-down'}`].path"
+              v-on:btnClick="sortColumn(index)">
+              <template slot="textBefore">{{column}}</template>
+            </button-icon>
+            <div v-else>
               {{column}}
-              <svg v-if="customizeTable[index].key === currentSort.fieldKey && isAscSort" viewBox="0 0 24 24" class="h-19px w-19px">
-                <path d="m 6.5,17.5 14,0 -7,-11 z"></path>
-              </svg>
-              <svg v-if="customizeTable[index].key === currentSort.fieldKey && !isAscSort" viewBox="0 0 24 24" class="h-19px w-19px">
-                <path d="m 20.5,6.5 -14,0 7,11 z"></path>
-              </svg>
-            </button>
-            <div v-else>{{column}}</div>
+            </div>
           </td> 
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item, rowIndex) in tableData" v-bind:key="item.ID" class="bdts-s bdc-gray bdw-1">
-          <td v-for="(item,index) in tableHeader" v-bind:key="`${item.ID}-col${index}`" v-bind:class="['p-6', customizeTable[index].columnStyle]">{{tableData[rowIndex][item] || '-'}}</td>
+        <tr 
+          v-for="(rowItem, rowIndex) in tableData" 
+          v-bind:key="rowItem.ID" class="bdts-s bdc-gray bdw-1">
+            <td 
+              v-for="(item,columnIndex) in tableHeader" 
+              v-bind:key="`${item.ID}-col${columnIndex}`" 
+              v-bind:class="[{'p-12': customizeTable[columnIndex].columnStyle === 'ta-r'}, 'p-6', customizeTable[columnIndex].columnStyle]">
+                <input 
+                  v-if="currentlyEditing.rowIndex === rowIndex && currentlyEditing.columnIndex === columnIndex"                 
+                  v-focus
+                  v-on:keyup.enter="saveEdit"
+                  v-on:keyup.esc="resetEdit"
+                  v-on:blur="resetEdit"
+                  class="w-100"
+                  v-model="editedItemValue"/>
+                <button-icon
+                  v-else-if="customizeTable[columnIndex].editable" 
+                  v-bind:path="svgIcons['edit'].path"
+                  height="16px"
+                  width="16px"
+                  v-on:btnClick="editItem(rowIndex, columnIndex)">
+                    <div class="pl-3 as-fe" slot="textAfter">{{tableData[rowIndex][item] || '-'}}</div>
+                </button-icon>
+                <div v-else>
+                  {{tableData[rowIndex][item] || '-'}}
+                </div>          
+            </td>
         </tr>
       </tbody>
     </table>
   </div>
 </template>
-
-<style scoped>
-
-</style>
