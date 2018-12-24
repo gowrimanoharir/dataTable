@@ -3,6 +3,11 @@
 .m-a { margin: auto; }
 .mv-24 { margin-top: 24px; margin-bottom: 24px;}
 .mh-36 { margin-left: 36px; margin-right: 36px;}
+.mh-48 { margin-left: 48px; margin-right: 48px;}
+
+.mb-12 { margin-bottom: 12px;}
+
+.ml-n11 { margin-left: -11px;}
 
 
 /* Paddings */
@@ -10,4 +15,8 @@
 .p-6 { padding: 6px; }
 .p-12 { padding-right: 12px; }
 
+.pv-6 { padding-top: 6px; padding-bottom: 6px;}
+
 .pl-3 { padding-left: 3px; }
+
+.pr-12 { padding-right: 12px; }

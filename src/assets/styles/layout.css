@@ -2,8 +2,9 @@
 .d-f { display: flex; }
 
 .jc-fe { justify-content: flex-end; }
-.jc-sb { justify-content: space-between; }
+.jc-se { justify-content: space-evenly; }
 
 .ai-c { align-items: center; }
+.ai-fe { align-items: flex-end; }
 
-.as-fe { align-self: flex-end; }
+.as-c { align-self: center; }

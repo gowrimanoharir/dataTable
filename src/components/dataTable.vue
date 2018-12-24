@@ -100,18 +100,20 @@ import svgIcons from './icons/svgIcons'
   <div>
     <table class="bds-s bdc-gray bdw-1 w-100">
       <thead>
-        <tr>
+        <tr class="bgc-light-blue-dim">
           <td 
             v-for="(column, index) in tableHeader" 
             v-bind:key="column" 
-            v-bind:class="[{'p-12': customizeTable[index].columnStyle === 'ta-r'},'fw-b p-6', customizeTable[index].columnStyle]">
+            v-bind:class="[{'pr-12': customizeTable[index].columnStyle === 'ta-r'},'fw-b p-6 va-m', customizeTable[index].columnStyle]">
             <button-icon
               v-if="customizeTable[index].sortable"
               v-bind:isIcon="customizeTable[index].key === currentSort.fieldKey"
               v-bind:class="[{'jc-fe': customizeTable[index].columnStyle === 'ta-r'}, 'ai-c']"
               v-bind:path="svgIcons[`${isAscSort ? 'caret-up' : 'caret-down'}`].path"
+              height="16px"
+              width="16px"              
               v-on:btnClick="sortColumn(index)">
-              <template slot="textBefore">{{column}}</template>
+              <div class="pl-3" slot="textAfter">{{column}}</div>
             </button-icon>
             <div v-else>
               {{column}}
@@ -122,11 +124,11 @@ import svgIcons from './icons/svgIcons'
       <tbody>
         <tr 
           v-for="(rowItem, rowIndex) in tableData" 
-          v-bind:key="rowItem.ID" class="bdts-s bdc-gray bdw-1">
+          v-bind:key="rowItem.ID" class="bdts-s bdc-gray bdw-1 bgc-light-blue-dim-hv">
             <td 
               v-for="(item,columnIndex) in tableHeader" 
               v-bind:key="`${item.ID}-col${columnIndex}`" 
-              v-bind:class="[{'p-12': customizeTable[columnIndex].columnStyle === 'ta-r'}, 'p-6', customizeTable[columnIndex].columnStyle]">
+              v-bind:class="[{'pr-12': customizeTable[columnIndex].columnStyle === 'ta-r'}, 'p-6 va-m', customizeTable[columnIndex].columnStyle]">
                 <input 
                   v-if="currentlyEditing.rowIndex === rowIndex && currentlyEditing.columnIndex === columnIndex"                 
                   v-focus
@@ -141,8 +143,9 @@ import svgIcons from './icons/svgIcons'
                   v-bind:path="svgIcons['edit'].path"
                   height="16px"
                   width="16px"
+                  class="ai-c"
                   v-on:btnClick="editItem(rowIndex, columnIndex)">
-                    <div class="pl-3 as-fe" slot="textAfter">{{tableData[rowIndex][item] || '-'}}</div>
+                    <div class="pl-3" slot="textAfter">{{tableData[rowIndex][item]}}</div>
                 </button-icon>
                 <div v-else>
                   {{tableData[rowIndex][item] || '-'}}
