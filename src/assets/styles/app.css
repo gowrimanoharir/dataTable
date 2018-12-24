@@ -16,3 +16,11 @@ button {
   border: 0;
   outline: none;
 }
+
+a {
+  color: unset;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+a:hover { text-decoration: underline; }

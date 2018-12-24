@@ -81,9 +81,20 @@ export default {
       const { ID = '' } = updatedData;
       if(this.lookUpData[ID]) {
         this.lookUpData[ID] = updatedData;
+        this.updateCsv();
       }
-    }
-  }
+    },
+    updateCsv() {
+      fetch('/payments', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },      
+        body: JSON.stringify(this.lookUpData)
+      });
+    },
+  },
 }
 </script>
 

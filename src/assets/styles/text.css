@@ -3,6 +3,18 @@
 .ta-l { text-align: left; }
 .ta-r { text-align: right; }
 
-/* text  */
+.va-m { vertical-align: middle; }
+
+/* font  */
 
 .fw-b { font-weight: 700; }
+
+.fs-16 { font-size: 16px; }
+.fs-30 { font-size: 30px; }
+.fs-75 { font-size: 75px; }
+
+/* text  color */
+
+.tc-w { color: #f5f5f5; }
+
+.td-u { text-decoration-line: underline; }

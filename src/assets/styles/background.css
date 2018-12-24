@@ -1,0 +1,6 @@
+/* background colors */
+
+.bgc-mild-blue { background-color: #72bcd7; }
+
+.bgc-light-blue-dim { background-color: rgb(148, 218, 243, 0.5); }
+.bgc-light-blue-dim-hv:hover { background-color: rgb(148, 218, 243, 0.25); }
