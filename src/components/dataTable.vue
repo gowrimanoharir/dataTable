@@ -113,7 +113,12 @@ import svgIcons from './icons/svgIcons'
               height="16px"
               width="16px"              
               v-on:btnClick="sortColumn(index)">
-              <div class="pl-3" slot="textAfter">{{column}}</div>
+              <div 
+                v-tooltip.top.start="{ content: 'Sort' }"
+                class="pl-3" 
+                slot="textAfter">
+                  {{column}}
+                </div>
             </button-icon>
             <div v-else>
               {{column}}
@@ -129,7 +134,8 @@ import svgIcons from './icons/svgIcons'
               v-for="(item,columnIndex) in tableHeader" 
               v-bind:key="`${item.ID}-col${columnIndex}`" 
               v-bind:class="[{'pr-12': customizeTable[columnIndex].columnStyle === 'ta-r'}, 'p-6 va-m', customizeTable[columnIndex].columnStyle]">
-                <input 
+                <input
+                  v-tooltip.top.start="{ content: 'Press: enter to save, esc/click away to cancel' }"
                   v-if="currentlyEditing.rowIndex === rowIndex && currentlyEditing.columnIndex === columnIndex"                 
                   v-focus
                   v-on:keyup.enter="saveEdit"
@@ -138,6 +144,7 @@ import svgIcons from './icons/svgIcons'
                   class="w-100"
                   v-model="editedItemValue"/>
                 <button-icon
+                  v-tooltip.top.start="{ content: 'Click to edit' }"
                   v-else-if="customizeTable[columnIndex].editable"
                   v-bind:isIcon="true"
                   v-bind:path="svgIcons['edit'].path"

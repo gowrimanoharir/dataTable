@@ -12,7 +12,8 @@
     "csvdata": "^1.7.0",
     "express": "^4.16.4",
     "lodash.orderby": "^4.6.0",
-    "vue": "^2.5.17"
+    "vue": "^2.5.17",
+    "vue-directive-tooltip": "^1.4.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.1",
