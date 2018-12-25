@@ -36,6 +36,9 @@ import svgIcons from './icons/svgIcons'
       }
     },
     computed: {
+      isCustomizing() {
+        return this.customizeTable.length > 0;
+      },
       tableHeader() {
         //if column details are provided use that to create column headers, column style etc
         const { customizeTable = [], tableData = [] } = this;
@@ -104,9 +107,9 @@ import svgIcons from './icons/svgIcons'
           <td 
             v-for="(column, index) in tableHeader" 
             v-bind:key="column" 
-            v-bind:class="[{'pr-12': customizeTable[index].columnStyle === 'ta-r'},'fw-b p-6 va-m', customizeTable[index].columnStyle]">
+            v-bind:class="[{'pr-12': isCustomizing && customizeTable[index].columnStyle === 'ta-r'},'fw-b p-6 va-m', isCustomizing ? customizeTable[index].columnStyle : '']">
             <button-icon
-              v-if="customizeTable[index].sortable"
+              v-if="isCustomizing && customizeTable[index].sortable"
               v-bind:isIcon="customizeTable[index].key === currentSort.fieldKey"
               v-bind:class="[{'jc-fe': customizeTable[index].columnStyle === 'ta-r'}, 'ai-c']"
               v-bind:path="svgIcons[`${isAscSort ? 'caret-up' : 'caret-down'}`].path"
@@ -133,7 +136,7 @@ import svgIcons from './icons/svgIcons'
             <td 
               v-for="(item,columnIndex) in tableHeader" 
               v-bind:key="`${item.ID}-col${columnIndex}`" 
-              v-bind:class="[{'pr-12': customizeTable[columnIndex].columnStyle === 'ta-r'}, 'p-6 va-m', customizeTable[columnIndex].columnStyle]">
+              v-bind:class="[{'pr-12': isCustomizing && customizeTable[columnIndex].columnStyle === 'ta-r'}, 'p-6 va-m', isCustomizing ? customizeTable[columnIndex].columnStyle : '']">
                 <input
                   v-tooltip.top.start="{ content: 'Press: enter to save, esc/click away to cancel' }"
                   v-if="currentlyEditing.rowIndex === rowIndex && currentlyEditing.columnIndex === columnIndex"                 
@@ -145,7 +148,7 @@ import svgIcons from './icons/svgIcons'
                   v-model="editedItemValue"/>
                 <button-icon
                   v-tooltip.top.start="{ content: 'Click to edit' }"
-                  v-else-if="customizeTable[columnIndex].editable"
+                  v-else-if="isCustomizing && customizeTable[columnIndex].editable"
                   v-bind:isIcon="true"
                   v-bind:path="svgIcons['edit'].path"
                   height="16px"

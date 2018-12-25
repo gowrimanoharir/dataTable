@@ -34,6 +34,7 @@ export default {
 </template>
 
 <style scoped>
+/* source: https://cloudcannon.com/deconstructions/2014/11/15/facebook-content-placeholder-deconstruction.html */
 @keyframes placeHolderShimmer{
     0%{
         background-position: -468px 0
