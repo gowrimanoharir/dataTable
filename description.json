@@ -1,0 +1,72 @@
+{
+  "about": {
+    "name": "Gowri M Rajasekaran",
+    "jobTitle": "Front-End Web Developer",
+    "email": "gowrimanohari.r@gmail.com",
+    "location": "Chicago, USA",
+    "summary": "Web developer with analytical skills and background in QA which allows me to build web applications and solve problems from a user's perspective. Experienced in IT ecosystem in an individual contributor and leadership roles. Passionate about my work and always looking for opportunities to learn and grow."
+  },
+  "findMe": {
+    "github": "www.github.com/gowrimanoharir",
+    "linkedin": "www.linkedin.com/in/gowri-r"
+  },
+  "work": {
+    "developer": [
+      {
+        "company": "Fitch Solutions (Randstad Consultant)",
+        "jobTitle": "Front-End Web Developer",
+        "start": "Oct 2017",
+        "end": "-",
+        "techStack": "JavaScript, HTML, CSS, Vue, Vuex, GraphQL, Hapi, Node.js, Axios, Lodash",
+      },
+      {
+        "company": "Bio Informatics Department, Northwestern University",
+        "jobTitle": "Front-End Web Developer",
+        "start": "Sep 2017",
+        "end": "Oct 2017",
+        "techStack": "JavaScript, HTML, CSS, React, Redux"
+      }      
+    ],
+    "qa": [
+      {
+        "company": "iLAB LLC",
+        "jobTitle": "Senior QA Analyst, QA Manager",
+        "start": "Sep 2015",
+        "end": "Sep 2017"
+      },
+      {
+        "company": "Assurant Health Insurance",
+        "jobTitle": "Test Lead",
+        "start": "Nov 2010",
+        "end": "Dec 2013"
+      },
+      {
+        "company": "USAA (TCS Consultant)",
+        "jobTitle": "Test Lead",
+        "start": "Aug 2005",
+        "end": "Mar 2009"
+      },
+      {
+        "company": "TCS",
+        "jobTitle": "Test Analyst",
+        "start": "Nov 2003",
+        "end": "Aug 2005"
+      }          
+    ]
+  },
+  "education": [
+    {
+      "institution": "Northwestern University, Chicago",
+      "major": "Full Stack Web Development - Coding Bootcamp",
+      "start": "Apr 2017",
+      "end": "Oct 2017",
+      "techStack": "HTML5, CSS, Bootstrap, Media Queries, JavaScript, jQuery, command line, GIT, Github, APIs, JSON, REST, AJAX, Firebase, MongoDB, MySQL, Node.js, Express, React.js"
+    },
+    {
+      "institution": "Kongu Engineering College, Tamilnadu, India",
+      "major": "Bachelor of Engineering - Information Technology",
+      "start": "Sep 1999",
+      "end": "May 2003"
+    }    
+  ]  
+}

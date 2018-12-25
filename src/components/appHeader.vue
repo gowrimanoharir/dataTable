@@ -6,7 +6,7 @@ export default {
 
 <template>
   <div class='bgc-mild-blue'>
-    <div class="d-f mh-48 pv-6 tc-w w-100">
+    <div class="d-f mh-48 pv-6 tc-w">
       <div class="fs-75 fw-b">V</div>
       <div class="as-c fs-30 tc-w">
         <div class="pl-3">Care</div>
