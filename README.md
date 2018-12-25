@@ -1,5 +1,9 @@
 # dataTable
 
+### Deployed app:
+
+https://cryptic-savannah-27358.herokuapp.com/
+
 ## Approach with Timeline
 
 ### Day 1
